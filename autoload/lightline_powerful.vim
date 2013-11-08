@@ -2,24 +2,30 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/10/31 11:59:13.
+" Last Change: 2013/11/09 02:39:23.
 " =============================================================================
 
 scriptencoding utf-8
 let s:save_cpo = &cpo
 set cpo&vim
 
+let s:filename_expr = {
+      \ 'ControlP' : "get(g:lightline, 'ctrlp_item', expand('%:t'))",
+      \ '__Tagbar__' : "get(g:lightline, 'fname', expand('%:t'))",
+      \ '__Gundo__' : "''",
+      \ '__Gundo_Preview__' : "''",
+      \ 'vimfiler' : 'vimfiler#get_status_string()',
+      \ 'unite' : 'unite#get_status_string()',
+      \ 'vimshell' : "substitute(b:vimshell.current_dir,expand('~'),'~','')",
+      \ 'dictionary' : "exists('b:dictionary.input') ? b:dictionary.input : ''",
+      \ 'calendar' : "join(calendar#day#today().get_ymd(), '/')",
+      \ 'thumbnail' : "'Thumbnail'",
+      \ }
 function! lightline_powerful#filename()
   let fname = expand('%:t')
-  let ret = fname == 'ControlP' ? get(g:lightline, 'ctrlp_item', fname) :
-        \ fname == '__Tagbar__' ? get(g:lightline, 'fname', fname) :
-        \ fname =~ '__Gundo\|NERD_tree' ? '' :
-        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \ &ft == 'unite' ? unite#get_status_string() :
-        \ &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
-        \ &ft == 'dictionary' ? (exists('b:dictionary.input') ? b:dictionary.input : '') :
-        \ &ft == 'calendar' ? join(calendar#day#today().get_ymd(), '/') :
-        \ &ft == 'thumbnail' ? 'Thumbnail' :
+  let ret = fname =~ 'NERD_tree' ? '' :
+        \ has_key(s:filename_expr, fname) ? eval(get(s:filename_expr, fname)) :
+        \ has_key(s:filename_expr, &ft) ? eval(get(s:filename_expr, &ft)) :
         \ (&readonly ? "\u2b64 " : '') .
         \ ('' != fname ? fname : '[No Name]') .
         \ (&modified ? ' +' : &modifiable ? '' : ' -')
@@ -28,9 +34,16 @@ endfunction
 
 function! lightline_powerful#fugitive()
   try
+    if has_key(b:, 'lightline_fugitive_result')
+      if reltimestr(reltime(b:lightline_fugitive_time)) =~# '^\s*\d\.'
+        return b:lightline_fugitive_result
+      endif
+    endif
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
       let _ = fugitive#head()
-      return strlen(_) ? "\u2b60 "._ : ''
+      let b:lightline_fugitive_result = strlen(_) ? "\u2b60 "._ : ''
+      let b:lightline_fugitive_time = reltime()
+      return b:lightline_fugitive_result
     endif
   catch
   endtry
@@ -38,15 +51,15 @@ function! lightline_powerful#fugitive()
 endfunction
 
 function! lightline_powerful#fileformat()
-  return &ft !~? 'vimfiler\|vimshell' && winwidth(0) > 70 ? &fileformat : ''
+  return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 
 function! lightline_powerful#filetype()
-  return &ft !~? 'vimfiler\|vimshell' && winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 function! lightline_powerful#fileencoding()
-  return &ft !~? 'vimfiler\|vimshell' && winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
 function! lightline_powerful#ctrlpmark()
