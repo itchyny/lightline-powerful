@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/11/09 02:39:23.
+" Last Change: 2013/11/09 12:27:53.
 " =============================================================================
 
 scriptencoding utf-8
@@ -23,27 +23,26 @@ let s:filename_expr = {
       \ }
 function! lightline_powerful#filename()
   let fname = expand('%:t')
-  let ret = fname =~ 'NERD_tree' ? '' :
+  return fname =~# '^NERD_tree' ? '' :
         \ has_key(s:filename_expr, fname) ? eval(get(s:filename_expr, fname)) :
         \ has_key(s:filename_expr, &ft) ? eval(get(s:filename_expr, &ft)) :
         \ (&readonly ? "\u2b64 " : '') .
         \ ('' != fname ? fname : '[No Name]') .
         \ (&modified ? ' +' : &modifiable ? '' : ' -')
-  return ret
 endfunction
 
 function! lightline_powerful#fugitive()
   try
-    if has_key(b:, 'lightline_fugitive_result')
-      if reltimestr(reltime(b:lightline_fugitive_time)) =~# '^\s*\d\.'
-        return b:lightline_fugitive_result
+    if has_key(b:, 'lightline_fugitive')
+      if reltimestr(reltime(b:lightline_fugitive_)) =~# '^\s*\d\.'
+        return b:lightline_fugitive
       endif
     endif
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
       let _ = fugitive#head()
-      let b:lightline_fugitive_result = strlen(_) ? "\u2b60 "._ : ''
-      let b:lightline_fugitive_time = reltime()
-      return b:lightline_fugitive_result
+      let b:lightline_fugitive = strlen(_) ? "\u2b60 "._ : ''
+      let b:lightline_fugitive_ = reltime()
+      return b:lightline_fugitive
     endif
   catch
   endtry
@@ -63,15 +62,15 @@ function! lightline_powerful#fileencoding()
 endfunction
 
 function! lightline_powerful#ctrlpmark()
-  if expand('%:t') =~ 'ControlP'
+  if expand('%:t') !=# 'ControlP'
+    return ''
+  else
     call lightline#link('iR'[get(g:lightline, 'ctrlp_regex', 0)])
     if has_key(g:lightline, 'ctrlp_prev') && has_key(g:lightline, 'ctrlp_item') && has_key(g:lightline, 'ctrlp_next')
       return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item, g:lightline.ctrlp_next], 0)
     else
       return ''
     endif
-  else
-    return ''
   endif
 endfunction
 
