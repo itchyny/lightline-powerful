@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/11/09 12:27:53.
+" Last Change: 2013/11/11 20:20:48.
 " =============================================================================
 
 scriptencoding utf-8
@@ -18,7 +18,7 @@ let s:filename_expr = {
       \ 'unite' : 'unite#get_status_string()',
       \ 'vimshell' : "substitute(b:vimshell.current_dir,expand('~'),'~','')",
       \ 'dictionary' : "exists('b:dictionary.input') ? b:dictionary.input : ''",
-      \ 'calendar' : "join(calendar#day#today().get_ymd(), '/')",
+      \ 'calendar' : "strftime('%Y/%m/%d')",
       \ 'thumbnail' : "'Thumbnail'",
       \ }
 function! lightline_powerful#filename()
