@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/11/11 20:20:48.
+" Last Change: 2013/11/19 09:10:27.
 " =============================================================================
 
 scriptencoding utf-8
@@ -16,19 +16,18 @@ let s:filename_expr = {
       \ '__Gundo_Preview__' : "''",
       \ 'vimfiler' : 'vimfiler#get_status_string()',
       \ 'unite' : 'unite#get_status_string()',
-      \ 'vimshell' : "substitute(b:vimshell.current_dir,expand('~'),'~','')",
-      \ 'dictionary' : "exists('b:dictionary.input') ? b:dictionary.input : ''",
+      \ 'vimshell' : "exists('b:vimshell.current_dir') ? substitute(b:vimshell.current_dir,expand('~'),'~','') : default",
+      \ 'dictionary' : "exists('b:dictionary.input') ? b:dictionary.input : default",
       \ 'calendar' : "strftime('%Y/%m/%d')",
       \ 'thumbnail' : "'Thumbnail'",
       \ }
 function! lightline_powerful#filename()
   let fname = expand('%:t')
+  let default = (&readonly ? "\u2b64 " : '') . ('' != fname ? fname : '[No Name]') . (&modified ? ' +' : &modifiable ? '' : ' -')
   return fname =~# '^NERD_tree' ? '' :
         \ has_key(s:filename_expr, fname) ? eval(get(s:filename_expr, fname)) :
         \ has_key(s:filename_expr, &ft) ? eval(get(s:filename_expr, &ft)) :
-        \ (&readonly ? "\u2b64 " : '') .
-        \ ('' != fname ? fname : '[No Name]') .
-        \ (&modified ? ' +' : &modifiable ? '' : ' -')
+        \ default
 endfunction
 
 function! lightline_powerful#fugitive()
