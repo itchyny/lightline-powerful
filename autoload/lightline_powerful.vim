@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/11/20 13:39:02.
+" Last Change: 2013/11/20 14:22:30.
 " =============================================================================
 
 scriptencoding utf-8
@@ -102,7 +102,7 @@ endfunction
 function! lightline_powerful#tabreadonly(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
-  return gettabwinvar(a:n, winnr, '&readonly') ? '⭤' : ''
+  return gettabwinvar(a:n, winnr, '&readonly') ? "\u2b64" : ''
 endfunction
 
 function! lightline_powerful#tabfilename(n)
@@ -117,7 +117,7 @@ function! lightline_powerful#tabfilename(n)
   else
     let fname = bufname
   endif
-  return get(s:fname_map, fname, get(s:ft_map, ft, strlen(fname) ? fname : '[No Name]'))
+  return get(s:fname_map, fname, get(s:ft_map, ft, fname))
 endfunction
 
 function! lightline_powerful#syntasticerror()
