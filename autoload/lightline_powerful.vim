@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/11/21 18:11:12.
+" Last Change: 2013/11/21 18:18:04.
 " =============================================================================
 
 scriptencoding utf-8
@@ -20,7 +20,7 @@ let s:filename_expr = {
       \ 'quickrun' : "'Quickrun'",
       \ 'dictionary' : "exists('b:dictionary.input') ? b:dictionary.input : default",
       \ 'calendar' : "strftime('%Y/%m/%d')",
-      \ 'thumbnail' : "exists('b:thumbnail.status') ? b:thumbnail.status : 'thumbnail'",
+      \ 'thumbnail' : "exists('b:thumbnail.status') ? b:thumbnail.status : 'Thumbnail'",
       \ }
 function! lightline_powerful#filename()
   let fname = expand('%:t')
