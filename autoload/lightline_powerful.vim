@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/11/21 18:18:04.
+" Last Change: 2013/11/22 12:51:12.
 " =============================================================================
 
 scriptencoding utf-8
@@ -25,7 +25,7 @@ let s:filename_expr = {
 function! lightline_powerful#filename()
   let fname = expand('%:t')
   let default = join(filter([&readonly ? "\u2b64" : '', fname, &modified ? '+' : &modifiable ? '' : '-'], 'len(v:val)'), ' ')
-  return fname =~# '^NERD_tree' ? '' : eval(get(s:filename_expr, &ft, get(s:filename_expr, fname, 'default')))
+  return fname =~# '^NERD_tree' ? '' : fname =~# '^\[preview' ? 'Preview' : eval(get(s:filename_expr, &ft, get(s:filename_expr, fname, 'default')))
 endfunction
 
 function! lightline_powerful#fugitive()
