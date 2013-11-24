@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/11/22 12:51:12.
+" Last Change: 2013/11/24 10:53:14.
 " =============================================================================
 
 scriptencoding utf-8
@@ -22,10 +22,16 @@ let s:filename_expr = {
       \ 'calendar' : "strftime('%Y/%m/%d')",
       \ 'thumbnail' : "exists('b:thumbnail.status') ? b:thumbnail.status : 'Thumbnail'",
       \ }
+let s:filename_update = [ 'ControlP', '__Tagbar__', 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
 function! lightline_powerful#filename()
   let fname = expand('%:t')
+  if has_key(b:, 'lightline_filename') && get(b:, 'lightline_filename_', '') ==# fname && index(s:filename_update, &ft) < 0 && index(s:filename_update, fname) < 0
+    return b:lightline_filename
+  endif
+  let b:lightline_filename_ = fname
   let default = join(filter([&readonly ? "\u2b64" : '', fname, &modified ? '+' : &modifiable ? '' : '-'], 'len(v:val)'), ' ')
-  return fname =~# '^NERD_tree' ? '' : fname =~# '^\[preview' ? 'Preview' : eval(get(s:filename_expr, &ft, get(s:filename_expr, fname, 'default')))
+  let b:lightline_filename = fname =~# '^NERD_tree' ? '' : fname =~# '^\[preview' ? 'Preview' : eval(get(s:filename_expr, &ft, get(s:filename_expr, fname, 'default')))
+  return b:lightline_filename
 endfunction
 
 function! lightline_powerful#fugitive()
