@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/11/24 11:07:42.
+" Last Change: 2013/12/13 09:09:15.
 " =============================================================================
 
 scriptencoding utf-8
@@ -120,7 +120,7 @@ function! lightline_powerful#tabfilename(n)
   else
     let fname = bufname
   endif
-  return get(s:m, fname, get(s:p, ft, fname))
+  return fname =~# '^\[preview' ? 'Preview' : get(s:m, fname, get(s:p, ft, fname))
 endfunction
 
 function! lightline_powerful#syntasticerror()
