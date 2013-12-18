@@ -2,8 +2,10 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/12/13 09:09:15.
+" Last Change: 2013/12/19 08:54:51.
 " =============================================================================
+
+let s:utf = &enc ==# 'utf-8' && &fenc ==# 'utf-8'
 
 scriptencoding utf-8
 let s:save_cpo = &cpo
@@ -23,17 +25,19 @@ let s:e = {
       \ 'thumbnail' : "exists('b:thumbnail.status') ? b:thumbnail.status : 'Thumbnail'",
       \ }
 let s:f = [ 'ControlP', '__Tagbar__', 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
+let s:ro = s:utf ? "\u2b64" : "RO"
 function! lightline_powerful#filename()
   let f = expand('%:t')
   if has_key(b:, 'lightline_filename') && get(b:, 'lightline_filename_', '') ==# f . &mod . &ma && index(s:f, &ft) < 0 && index(s:f, f) < 0
     return b:lightline_filename
   endif
   let b:lightline_filename_ = f . &mod . &ma
-  let default = join(filter([&ro ? "\u2b64" : '', f, &mod ? '+' : &ma ? '' : '-'], 'len(v:val)'), ' ')
+  let default = join(filter([&ro ? s:ro : '', f, &mod ? '+' : &ma ? '' : '-'], 'len(v:val)'), ' ')
   let b:lightline_filename = f =~# '^NERD_tree' ? '' : f =~# '^\[preview' ? 'Preview' : eval(get(s:e, &ft, get(s:e, f, 'default')))
   return b:lightline_filename
 endfunction
 
+let s:fu = s:utf ? "\u2b60 " : ""
 function! lightline_powerful#fugitive()
   if has_key(b:, 'lightline_fugitive')
     if reltimestr(reltime(b:lightline_fugitive_)) =~# '^\s*\d\.'
@@ -43,7 +47,7 @@ function! lightline_powerful#fugitive()
   try
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
       let _ = fugitive#head()
-      let b:lightline_fugitive = strlen(_) ? "\u2b60 "._ : ''
+      let b:lightline_fugitive = strlen(_) ? s:fu._ : ''
       let b:lightline_fugitive_ = reltime()
       return b:lightline_fugitive
     endif
@@ -105,7 +109,7 @@ endfunction
 function! lightline_powerful#tabreadonly(n)
   let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
-  return gettabwinvar(a:n, winnr, '&readonly') ? "\u2b64" : ''
+  return gettabwinvar(a:n, winnr, '&readonly') ? s:ro : ''
 endfunction
 
 function! lightline_powerful#tabfilename(n)

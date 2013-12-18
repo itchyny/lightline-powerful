@@ -2,8 +2,10 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/10/31 11:54:48.
+" Last Change: 2013/12/19 08:52:37.
 " =============================================================================
+
+let s:utf = &enc ==# 'utf-8' && &fenc ==# 'utf-8'
 
 scriptencoding utf-8
 let s:save_cpo = &cpo
@@ -27,7 +29,7 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \   'inactive': [ 'tabnum', 'readonly', 'filename', 'modified' ]
       \ },
       \ 'component': {
-      \   'close': printf('%%999X %s ', has('multi_byte') ? "\u2717" : 'x'),
+      \   'close': printf('%%999X %s ', has('multi_byte') && s:utf ? "\u2717" : 'x'),
       \ },
       \ 'component_function': {
       \   'fugitive': 'lightline_powerful#fugitive',
@@ -50,9 +52,13 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \   'filename': 'lightline_powerful#tabfilename',
       \   'readonly': 'lightline_powerful#tabreadonly',
       \ },
-      \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
-      \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" }
       \ }, 'keep')
+
+if s:utf
+  call extend(g:lightline, {
+      \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
+      \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" } })
+endif
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
