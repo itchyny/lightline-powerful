@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/12/23 02:34:27.
+" Last Change: 2014/01/14 23:52:40.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8' && &fenc ==# 'utf-8'
@@ -71,6 +71,9 @@ endfunction
 
 function! lightline_powerful#ctrlpmark()
   if expand('%:t') !=# 'ControlP'
+    if &ft ==# 'calendar' && has_key(b:, 'calendar')
+      call lightline#link("nvV\<C-v>"[b:calendar.visual_mode()])
+    endif
     return ''
   else
     call lightline#link('iR'[get(g:lightline, 'ctrlp_regex', 0)])
