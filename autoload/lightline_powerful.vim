@@ -71,7 +71,7 @@ endfunction
 
 function! lightline_powerful#ctrlpmark()
   if expand('%:t') !=# 'ControlP'
-    if &ft ==# 'calendar' && has_key(b:, 'calendar')
+    if &ft ==# 'calendar' && has_key(b:, 'calendar') && has_key(b:calendar, 'visual_mode')
       call lightline#link("nvV\<C-v>"[b:calendar.visual_mode()])
     endif
     return ''
