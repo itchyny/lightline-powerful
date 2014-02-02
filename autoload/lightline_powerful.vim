@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/01/28 11:58:35.
+" Last Change: 2014/02/02 22:15:33.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8' && &fenc ==# 'utf-8'
@@ -76,7 +76,7 @@ function! lightline_powerful#ctrlpmark()
     endif
     if &ft ==# 'thumbnail' && has_key(b:, 'thumbnail') && has_key(b:thumbnail, 'visual_mode')
       if b:thumbnail.visual_mode < 4
-        call lightline#link("nvV\<C-v>"[b:thumbnail.visual_mode])
+        call lightline#link("nvV\<C-v>i"[get(b:thumbnail,'insert_mode') ? 4 : b:thumbnail.visual_mode])
       endif
     endif
     return ''
