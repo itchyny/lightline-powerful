@@ -5,7 +5,7 @@
 " Last Change: 2014/02/03 16:53:07.
 " =============================================================================
 
-let s:utf = &enc ==# 'utf-8' && &fenc ==# 'utf-8'
+let s:utf = &enc ==# 'utf-8'
 
 scriptencoding utf-8
 let s:save_cpo = &cpo
