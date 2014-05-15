@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/02/03 16:53:07.
+" Last Change: 2014/04/24 10:52:57.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -46,8 +46,14 @@ function! lightline_powerful#fugitive()
     endif
   endif
   try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let _ = fugitive#head()
+    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler'
+      if exists('*gitbranch#name')
+        let _ = gitbranch#name()
+      elseif exists('*fugitive#head')
+        let _ = fugitive#head()
+      else
+        return ''
+      endif
       let b:lightline_fugitive = strlen(_) ? s:fu._ : ''
       let b:lightline_fugitive_ = reltime()
       return b:lightline_fugitive
