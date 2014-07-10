@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/05/28 13:29:06.
+" Last Change: 2014/07/10 23:27:05.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -123,7 +123,6 @@ function! lightline_powerful#CtrlPStatusFunc_2(str)
 endfunction
 
 function! lightline_powerful#tabreadonly(n)
-  let buflist = tabpagebuflist(a:n)
   let winnr = tabpagewinnr(a:n)
   return gettabwinvar(a:n, winnr, '&readonly') ? s:ro : ''
 endfunction
