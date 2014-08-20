@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/07/10 23:27:05.
+" Last Change: 2014/08/16 23:35:06.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -143,14 +143,15 @@ function! lightline_powerful#tabfilename(n)
 endfunction
 
 function! lightline_powerful#syntasticerror()
-  if exists('b:syntastic_loclist') && len(b:syntastic_loclist.errors())
+  if exists('b:syntastic_loclist') && has_key(b:syntastic_loclist, 'errors') && len(b:syntastic_loclist.errors())
     return substitute(substitute(b:syntastic_loclist.errors()[0].text, '%', '%%', 'g'), '\[.\{-}\]', '', 'g')
   endif
   return ''
 endfunction
 
 function! lightline_powerful#syntasticwarning()
-  if exists('b:syntastic_loclist') && len(b:syntastic_loclist.warnings()) && !len(b:syntastic_loclist.errors())
+  if exists('b:syntastic_loclist') && has_key(b:syntastic_loclist, 'warnings') && has_key(b:syntastic_loclist, 'errors')
+        \ && len(b:syntastic_loclist.warnings()) && !len(b:syntastic_loclist.errors())
     return substitute(substitute(b:syntastic_loclist.warnings()[0].text, '%', '%%', 'g'), '\[.\{-}\]', '', 'g')
   endif
   return ''
