@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/08/16 23:35:06.
+" Last Change: 2014/08/21 20:25:25.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -24,6 +24,9 @@ let s:e = {
       \ 'dictionary' : "exists('b:dictionary.input') ? b:dictionary.input : default",
       \ 'calendar' : "strftime('%Y/%m/%d')",
       \ 'thumbnail' : "exists('b:thumbnail.status') ? b:thumbnail.status : 'Thumbnail'",
+      \ 'agit' : "''",
+      \ 'agit_diff' : "''",
+      \ 'agit_stat' : "''",
       \ '[Command Line]': "''",
       \ }
 let s:f = [ 'ControlP', '__Tagbar__', 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
@@ -98,7 +101,7 @@ function! lightline_powerful#ctrlpmark()
 endfunction
 
 let s:m = { 'ControlP': 'CtrlP', '__Tagbar__': 'Tagbar', '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
-let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc' }
+let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit' }
 function! lightline_powerful#mode()
   return get(s:m, expand('%:t'), get(s:p, &ft, winwidth(0) > 60 ? lightline#mode() : ''))
 endfunction
