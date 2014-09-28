@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2013/12/19 08:52:37.
+" Last Change: 2014/08/25 14:43:11.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8' && &fenc ==# 'utf-8'
@@ -30,6 +30,7 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \ },
       \ 'component': {
       \   'close': printf('%%999X %s ', has('multi_byte') && s:utf ? "\u2717" : 'x'),
+      \   'lineinfo': '%3l:%-2c',
       \ },
       \ 'component_function': {
       \   'fugitive': 'lightline_powerful#fugitive',
