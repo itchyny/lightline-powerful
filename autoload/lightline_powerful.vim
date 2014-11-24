@@ -147,7 +147,7 @@ endfunction
 
 function! lightline_powerful#syntasticerror()
   if exists('b:syntastic_loclist') && has_key(b:syntastic_loclist, 'errors') && len(b:syntastic_loclist.errors())
-    return substitute(substitute(b:syntastic_loclist.errors()[0].text, '%', '%%', 'g'), '\[.\{-}\]', '', 'g')
+    return substitute(substitute(b:syntastic_loclist.errors()[0].text, '%', '%%', 'g'), '\(note: \|\(.*unable to load package\|In the second argument of\|Declared at: \| or explicitly provide\).*\|‘\|’\|Perhaps you meant[^:]*\| (imported from[^)]*)\|(visible) \)', '', 'g')
   endif
   return ''
 endfunction
@@ -155,7 +155,7 @@ endfunction
 function! lightline_powerful#syntasticwarning()
   if exists('b:syntastic_loclist') && has_key(b:syntastic_loclist, 'warnings') && has_key(b:syntastic_loclist, 'errors')
         \ && len(b:syntastic_loclist.warnings()) && !len(b:syntastic_loclist.errors())
-    return substitute(substitute(b:syntastic_loclist.warnings()[0].text, '%', '%%', 'g'), '\[.\{-}\]', '', 'g')
+    return substitute(substitute(substitute(b:syntastic_loclist.warnings()[0].text, '%', '%%', 'g'), '\.hs:\d\+:\d\+-\d\+\zs.*', '', ''), '\(\(Defaulting the following constraint\|: Patterns not matched\| except perhaps to import instances from \).*\|forall [a-z]\. \)', '', 'g')
   endif
   return ''
 endfunction
