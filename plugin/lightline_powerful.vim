@@ -2,8 +2,13 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/08/25 14:43:11.
+" Last Change: 2014/12/16 20:58:51.
 " =============================================================================
+
+if exists("g:loaded_lightline_powerful") || v:version < 700
+  finish
+endif
+let g:loaded_lightline_powerful = 1
 
 let s:utf = &enc ==# 'utf-8' && &fenc ==# 'utf-8'
 
