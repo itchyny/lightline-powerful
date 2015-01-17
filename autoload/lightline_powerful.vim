@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/12/17 00:17:50.
+" Last Change: 2015/01/09 09:27:48.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -20,6 +20,7 @@ let s:e = {
       \ 'unite' : 'unite#get_status_string()',
       \ 'vimshell' : "exists('b:vimshell.current_dir') ? substitute(b:vimshell.current_dir,expand('~'),'~','') : default",
       \ 'quickrun' : "''",
+      \ 'qf' : "''",
       \ 'vimcalc' : "''",
       \ 'dictionary' : "exists('b:dictionary.input') ? b:dictionary.input : default",
       \ 'calendar' : "strftime('%Y/%m/%d')",
@@ -99,7 +100,7 @@ function! lightline_powerful#ctrlpmark() abort
 endfunction
 
 let s:m = { 'ControlP': 'CtrlP', '__Tagbar__': 'Tagbar', '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
-let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit' }
+let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix' }
 function! lightline_powerful#mode() abort
   return get(s:m, expand('%:t'), get(s:p, &ft, winwidth(0) > 60 ? lightline#mode() : ''))
 endfunction
