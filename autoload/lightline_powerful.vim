@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/01/09 09:27:48.
+" Last Change: 2015/01/18 07:38:56.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -40,6 +40,9 @@ function! lightline_powerful#filename() abort
   let b:lightline_filename_ = f . &mod . &ma
   let default = join(filter([&ro ? s:ro : '', f, &mod ? '+' : &ma ? '' : '-'], 'len(v:val)'), ' ')
   let b:lightline_filename = f =~# '^NERD_tree' ? '' : f =~# '^\[preview' ? 'Preview' : eval(get(s:e, &ft, get(s:e, f, 'default')))
+  if len(b:lightline_filename) > winwidth(0)
+    let b:lightline_filename = matchstr(b:lightline_filename, repeat('.', strchars(b:lightline_filename) * winwidth(0) / len(b:lightline_filename)))
+  endif
   return b:lightline_filename
 endfunction
 
