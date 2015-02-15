@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/01/26 13:33:58.
+" Last Change: 2015/02/15 00:22:52.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -150,7 +150,7 @@ endfunction
 
 function! lightline_powerful#syntasticerror() abort
   if exists('b:syntastic_loclist') && has_key(b:syntastic_loclist, 'errors') && len(b:syntastic_loclist.errors())
-    return substitute(substitute(b:syntastic_loclist.errors()[0].text, '%', '%%', 'g'), '\(note: \|\(.*unable to load package\|In the second argument of\|Declared at: \| or explicitly provide\).*\|‘\|’\|Perhaps you meant[^:]*\| (imported from[^)]*)\|(visible) \)', '', 'g')
+    return substitute(substitute(b:syntastic_loclist.errors()[0].text, '%', '%%', 'g'), '\%(note: \|\(.*unable to load package\|In the second argument of\|Declared at: \| or explicitly provide\).*\|‘\|’\|Perhaps you .*\| (imported from[^)]*)\|(visible) \|It could refer to either.*\|It is a member of the .*\|In the expression:.*\)', '', 'g')
   endif
   return ''
 endfunction
