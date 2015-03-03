@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/02/15 00:22:52.
+" Last Change: 2015/02/18 10:05:46.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -32,7 +32,7 @@ let s:e = {
       \ '[Command Line]': "''",
       \ }
 let s:f = [ 'ControlP', '__Tagbar__', 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
-let s:ro = s:utf ? "\u2b64" : "RO"
+let s:ro = s:utf ? "\u2b64" : 'RO'
 function! lightline_powerful#filename() abort
   let f = expand('%:t')
   if has_key(b:, 'lightline_filename') && get(b:, 'lightline_filename_', '') ==# f . &mod . &ma && index(s:f, &ft) < 0 && index(s:f, f) < 0
@@ -47,7 +47,7 @@ function! lightline_powerful#filename() abort
   return b:lightline_filename
 endfunction
 
-let s:fu = s:utf ? "\u2b60 " : ""
+let s:fu = s:utf ? "\u2b60 " : ''
 function! lightline_powerful#fugitive() abort
   if has_key(b:, 'lightline_fugitive') && reltimestr(reltime(b:lightline_fugitive_)) =~# '^\s*0\.[0-3]'
     return b:lightline_fugitive
