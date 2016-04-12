@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/07/23 21:22:35.
+" Last Change: 2016/04/12 09:04:55.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -82,30 +82,18 @@ function! lightline_powerful#fileencoding() abort
   return &ft !=# 'vimfiler' && winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
-function! lightline_powerful#ctrlpmark() abort
-  if expand('%:t') !=# 'ControlP'
-    if &ft ==# 'calendar' && has_key(b:, 'calendar') && has_key(b:calendar, 'visual_mode')
-      call lightline#link("nvV\<C-v>"[b:calendar.visual_mode()])
-    endif
-    if &ft ==# 'thumbnail' && has_key(b:, 'thumbnail') && has_key(b:thumbnail, 'visual_mode')
-      if b:thumbnail.visual_mode < 4
-        call lightline#link("nvV\<C-v>i"[get(b:thumbnail,'insert_mode') ? 4 : b:thumbnail.visual_mode])
-      endif
-    endif
-    return ''
-  else
-    call lightline#link('iR'[get(g:lightline, 'ctrlp_regex', 0)])
-    if has_key(g:lightline, 'ctrlp_prev') && has_key(g:lightline, 'ctrlp_item') && has_key(g:lightline, 'ctrlp_next')
-      return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item, g:lightline.ctrlp_next], 0)
-    else
-      return ''
-    endif
-  endif
-endfunction
-
 let s:m = { 'ControlP': 'CtrlP', '__Tagbar__': 'Tagbar', '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
 let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix', 'github-dashboard': 'GitHub Dashboard' }
 function! lightline_powerful#mode() abort
+  if &ft ==# 'calendar' && has_key(b:, 'calendar')
+    call lightline#link("nvV\<C-v>"[b:calendar.visual_mode()])
+  elseif &ft ==# 'thumbnail' && has_key(b:, 'thumbnail') && has_key(b:thumbnail, 'visual_mode')
+    if b:thumbnail.visual_mode < 4
+      call lightline#link("nvV\<C-v>i"[get(b:thumbnail,'insert_mode') ? 4 : b:thumbnail.visual_mode])
+    endif
+  elseif expand('%:t') ==# 'ControlP'
+    call lightline#link('iR'[get(g:lightline, 'ctrlp_regex', 0)])
+  endif
   return get(s:m, expand('%:t'), get(s:p, &ft, winwidth(0) > 60 ? lightline#mode() : ''))
 endfunction
 

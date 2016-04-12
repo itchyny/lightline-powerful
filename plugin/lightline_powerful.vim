@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/02/18 10:05:50.
+" Last Change: 2016/04/12 09:04:40.
 " =============================================================================
 
 if exists('g:loaded_lightline_powerful') || v:version < 700
@@ -18,7 +18,7 @@ set cpo&vim
 
 let g:lightline = extend(get(g:, 'lightline', {}), {
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], [ 'ctrlpmark' ] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
       \   'right': [ [ 'syntastic_error', 'syntastic_warning', 'lineinfo'], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'inactive': {
@@ -44,7 +44,6 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \   'filetype': 'lightline_powerful#filetype',
       \   'fileencoding': 'lightline_powerful#fileencoding',
       \   'mode': 'lightline_powerful#mode',
-      \   'ctrlpmark': 'lightline_powerful#ctrlpmark',
       \ },
       \ 'component_expand': {
       \   'syntastic_error': 'lightline_powerful#syntasticerror',
