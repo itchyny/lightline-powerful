@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2016/04/12 09:04:40.
+" Last Change: 2016/04/17 14:19:13.
 " =============================================================================
 
 if exists('g:loaded_lightline_powerful') || v:version < 700
@@ -40,9 +40,6 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \ 'component_function': {
       \   'fugitive': 'lightline_powerful#fugitive',
       \   'filename': 'lightline_powerful#filename',
-      \   'fileformat': 'lightline_powerful#fileformat',
-      \   'filetype': 'lightline_powerful#filetype',
-      \   'fileencoding': 'lightline_powerful#fileencoding',
       \   'mode': 'lightline_powerful#mode',
       \ },
       \ 'component_expand': {

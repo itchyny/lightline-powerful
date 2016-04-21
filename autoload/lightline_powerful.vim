@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2016/04/12 09:04:55.
+" Last Change: 2016/04/17 14:19:12.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -68,18 +68,6 @@ function! lightline_powerful#fugitive() abort
   catch
   endtry
   return ''
-endfunction
-
-function! lightline_powerful#fileformat() abort
-  return &ft !=# 'vimfiler' && winwidth(0) > 70 ? &ff : ''
-endfunction
-
-function! lightline_powerful#filetype() abort
-  return &ft !=# 'vimfiler' && winwidth(0) > 70 ? (strlen(&ft) ? &ft : 'no ft') : ''
-endfunction
-
-function! lightline_powerful#fileencoding() abort
-  return &ft !=# 'vimfiler' && winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
 let s:m = { 'ControlP': 'CtrlP', '__Tagbar__': 'Tagbar', '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
