@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2016/04/17 14:19:12.
+" Last Change: 2016/04/28 09:27:34.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -48,25 +48,20 @@ function! lightline_powerful#filename() abort
 endfunction
 
 let s:fu = s:utf ? "\u2b60 " : ''
-function! lightline_powerful#fugitive() abort
-  if has_key(b:, 'lightline_fugitive') && reltimestr(reltime(b:lightline_fugitive_)) =~# '^\s*0\.[0-3]'
-    return b:lightline_fugitive
+function! lightline_powerful#gitbranch() abort
+  if has_key(b:, 'lightline_gitbranch') && reltimestr(reltime(b:lightline_gitbranch_)) =~# '^\s*0\.[0-3]'
+    return b:lightline_gitbranch
   endif
-  try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD\|^$' && &ft !~? 'vimfiler'
-      if exists('*gitbranch#name')
-        let _ = gitbranch#name()
-      elseif exists('*fugitive#head')
-        let _ = fugitive#head()
-      else
-        return ''
-      endif
-      let b:lightline_fugitive = strlen(_) ? s:fu._ : ''
-      let b:lightline_fugitive_ = reltime()
-      return b:lightline_fugitive
+  if &filetype !~? 'vimfiler'
+    if exists('*gitbranch#name')
+      let branch = gitbranch#name()
+    else
+      return ''
     endif
-  catch
-  endtry
+    let b:lightline_gitbranch = branch !=# '' ? s:fu.branch : ''
+    let b:lightline_gitbranch_ = reltime()
+    return b:lightline_gitbranch
+  endif
   return ''
 endfunction
 
