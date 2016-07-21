@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2016/04/28 09:27:34.
+" Last Change: 2016/07/21 12:09:08.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -52,17 +52,14 @@ function! lightline_powerful#gitbranch() abort
   if has_key(b:, 'lightline_gitbranch') && reltimestr(reltime(b:lightline_gitbranch_)) =~# '^\s*0\.[0-3]'
     return b:lightline_gitbranch
   endif
-  if &filetype !~? 'vimfiler'
-    if exists('*gitbranch#name')
-      let branch = gitbranch#name()
-    else
-      return ''
-    endif
-    let b:lightline_gitbranch = branch !=# '' ? s:fu.branch : ''
-    let b:lightline_gitbranch_ = reltime()
-    return b:lightline_gitbranch
+  if exists('*gitbranch#name')
+    let branch = gitbranch#name()
+  else
+    return ''
   endif
-  return ''
+  let b:lightline_gitbranch = branch !=# '' ? s:fu.branch : ''
+  let b:lightline_gitbranch_ = reltime()
+  return b:lightline_gitbranch
 endfunction
 
 let s:m = { 'ControlP': 'CtrlP', '__Tagbar__': 'Tagbar', '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
