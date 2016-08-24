@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2016/07/21 12:09:08.
+" Last Change: 2016/08/20 16:55:07.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -40,10 +40,7 @@ function! lightline_powerful#filename() abort
   endif
   let b:lightline_filename_ = f . &mod . &ma
   let default = join(filter([&ro ? s:ro : '', f, &mod ? '+' : &ma ? '' : '-'], 'len(v:val)'), ' ')
-  let b:lightline_filename = f =~# '^NERD_tree' ? '' : f =~# '^\[preview' ? 'Preview' : eval(get(s:e, &ft, get(s:e, f, 'default')))
-  if len(b:lightline_filename) > winwidth(0)
-    let b:lightline_filename = matchstr(b:lightline_filename, repeat('.', strchars(b:lightline_filename) * winwidth(0) / len(b:lightline_filename)))
-  endif
+  let b:lightline_filename = f =~# '^\[preview' ? 'Preview' : eval(get(s:e, &ft, get(s:e, f, 'default')))
   return b:lightline_filename
 endfunction
 
@@ -65,16 +62,16 @@ endfunction
 let s:m = { 'ControlP': 'CtrlP', '__Tagbar__': 'Tagbar', '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
 let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix', 'github-dashboard': 'GitHub Dashboard' }
 function! lightline_powerful#mode() abort
-  if &ft ==# 'calendar' && has_key(b:, 'calendar')
+  if &ft ==# 'calendar'
     call lightline#link("nvV\<C-v>"[b:calendar.visual_mode()])
-  elseif &ft ==# 'thumbnail' && has_key(b:, 'thumbnail') && has_key(b:thumbnail, 'visual_mode')
+  elseif &ft ==# 'thumbnail'
     if b:thumbnail.visual_mode < 4
       call lightline#link("nvV\<C-v>i"[get(b:thumbnail,'insert_mode') ? 4 : b:thumbnail.visual_mode])
     endif
   elseif expand('%:t') ==# 'ControlP'
     call lightline#link('iR'[get(g:lightline, 'ctrlp_regex', 0)])
   endif
-  return get(s:m, expand('%:t'), get(s:p, &ft, winwidth(0) > 60 ? lightline#mode() : ''))
+  return get(s:m, expand('%:t'), get(s:p, &ft, lightline#mode()))
 endfunction
 
 let g:tagbar_status_func = 'lightline_powerful#TagbarStatusFunc'
