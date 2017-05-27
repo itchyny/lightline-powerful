@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2016/08/27 23:45:55.
+" Last Change: 2017/05/28 02:28:42.
 " =============================================================================
 
 if exists('g:loaded_lightline_powerful') || v:version < 700
@@ -19,7 +19,7 @@ set cpo&vim
 let g:lightline = extend(get(g:, 'lightline', {}), {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'filename' ] ],
-      \   'right': [ [ 'syntastic_error', 'syntastic_warning', 'lineinfo'], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'inactive': {
       \   'left': [ [ 'filename' ] ],
@@ -45,14 +45,6 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \ 'component_function_visible_condition': {
       \   'filename': 'get(b:,"lightline_filename","")!=#""',
       \   'mode': '1',
-      \ },
-      \ 'component_expand': {
-      \   'syntastic_error': 'lightline_powerful#syntasticerror',
-      \   'syntastic_warning': 'lightline_powerful#syntasticwarning',
-      \ },
-      \ 'component_type': {
-      \   'syntastic_error': 'error',
-      \   'syntastic_warning': 'warning',
       \ },
       \ 'tab_component_function': {
       \   'filename': 'lightline_powerful#tabfilename',

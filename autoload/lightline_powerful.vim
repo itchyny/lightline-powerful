@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2016/12/25 19:58:16.
+" Last Change: 2017/05/28 02:28:07.
 " =============================================================================
 
 let s:utf = &enc ==# 'utf-8'
@@ -111,21 +111,6 @@ function! lightline_powerful#tabfilename(n) abort
     let fname = bufname
   endif
   return fname =~# '^\[preview' ? 'Preview' : get(s:m, fname, get(s:p, ft, fname))
-endfunction
-
-function! lightline_powerful#syntasticerror() abort
-  if exists('b:syntastic_loclist') && has_key(b:syntastic_loclist, 'errors') && len(b:syntastic_loclist.errors())
-    return substitute(substitute(substitute(substitute(b:syntastic_loclist.errors()[0].text, '%', '%%', 'g'), '\[Char\]', 'String', 'g'), '\%(note: \|\(.*unable to load package\|In the second argument of\|Declared at: \| or explicitly provide\).*\|‘\|’\|Perhaps you .*\| (imported from[^)]*)\|(visible) \|It could refer to either.*\|It is a member of the .*\|In the expression:.*\|Probable cause:.*\|GHC\.\w\+\.\|In the [a-z]\+ argument of.*\|integer-gmp:\|Data\.\w\+\.\)', '', 'g'), 'Found\zs:.*\zeWhy not:', '. ', '')
-  endif
-  return ''
-endfunction
-
-function! lightline_powerful#syntasticwarning() abort
-  if exists('b:syntastic_loclist') && has_key(b:syntastic_loclist, 'warnings') && has_key(b:syntastic_loclist, 'errors')
-        \ && len(b:syntastic_loclist.warnings()) && !len(b:syntastic_loclist.errors())
-    return substitute(substitute(substitute(substitute(substitute(b:syntastic_loclist.warnings()[0].text, '%', '%%', 'g'), '\[Char\]', 'String', 'g'), '\.hs:\d\+:\d\+-\d\+\zs.*', '', ''), '\(\(Defaulting the following constraint\|: Patterns not matched\| except perhaps to import instances from \).*\|forall [a-z]\. \|GHC\.\w\+\.\|integer-gmp:\|Data\.\w\+\.\)', '', 'g'), 'Found\zs:.*\zeWhy not:', '. ', '')
-  endif
-  return ''
 endfunction
 
 let &cpo = s:save_cpo
