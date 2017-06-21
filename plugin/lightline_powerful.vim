@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2017/05/28 02:28:42.
+" Last Change: 2017/06/21 23:33:45.
 " =============================================================================
 
 if exists('g:loaded_lightline_powerful') || v:version < 700
@@ -27,14 +27,13 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \ },
       \ 'tabline': {
       \   'left': [ [ 'tabs' ] ],
-      \   'right': [ [ 'close' ] ]
+      \   'right': []
       \ },
       \ 'tab': {
       \   'active': [ 'tabnum', 'readonly', 'filename', 'modified' ],
       \   'inactive': [ 'tabnum', 'readonly', 'filename', 'modified' ]
       \ },
       \ 'component': {
-      \   'close': printf('%%999X %s ', has('multi_byte') && s:utf ? "\u2717" : 'x'),
       \   'lineinfo': '%3l:%-2c',
       \ },
       \ 'component_function': {
