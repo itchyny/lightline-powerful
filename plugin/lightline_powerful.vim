@@ -2,15 +2,13 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2017/06/21 23:33:45.
+" Last Change: 2019/10/09 10:43:30.
 " =============================================================================
 
 if exists('g:loaded_lightline_powerful') || v:version < 700
   finish
 endif
 let g:loaded_lightline_powerful = 1
-
-let s:utf = &enc ==# 'utf-8' && &fenc ==# 'utf-8'
 
 scriptencoding utf-8
 let s:save_cpo = &cpo
@@ -50,12 +48,6 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \   'readonly': 'lightline_powerful#tabreadonly',
       \ },
       \ }, 'keep')
-
-if s:utf
-  call extend(g:lightline, {
-      \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
-      \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" } })
-endif
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

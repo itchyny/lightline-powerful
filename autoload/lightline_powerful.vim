@@ -2,10 +2,8 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2017/05/28 02:28:07.
+" Last Change: 2019/10/09 10:46:04.
 " =============================================================================
-
-let s:utf = &enc ==# 'utf-8'
 
 scriptencoding utf-8
 let s:save_cpo = &cpo
@@ -32,19 +30,17 @@ let s:e = {
       \ '[Command Line]': "''",
       \ }
 let s:f = [ 'ControlP', '__Tagbar__', 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
-let s:ro = s:utf ? "\u2b64" : 'RO'
 function! lightline_powerful#filename() abort
   let f = expand('%:t')
   if has_key(b:, 'lightline_filename') && get(b:, 'lightline_filename_', '') ==# f . &mod . &ma && index(s:f, &ft) < 0 && index(s:f, f) < 0
     return b:lightline_filename
   endif
   let b:lightline_filename_ = f . &mod . &ma
-  let default = join(filter([&ro ? s:ro : '', f, &mod ? '+' : &ma ? '' : '-'], 'len(v:val)'), ' ')
-  let b:lightline_filename = f =~# '^\[preview' ? 'Preview' : eval(get(s:e, &ft, get(s:e, f, 'default')))
+  let default = join(filter([&ro ? 'RO' : '', f, &mod ? '+' : &ma ? '' : '-'], 'len(v:val)'), ' ')
+  let b:lightline_filename = f ==# '' ? 'No Name' : f =~# '^\[preview' ? 'Preview' : eval(get(s:e, &ft, get(s:e, f, 'default')))
   return b:lightline_filename
 endfunction
 
-let s:fu = s:utf ? "\u2b60 " : ''
 function! lightline_powerful#gitbranch() abort
   if has_key(b:, 'lightline_gitbranch') && reltimestr(reltime(b:lightline_gitbranch_)) =~# '^\s*0\.[0-3]'
     return b:lightline_gitbranch
@@ -54,7 +50,7 @@ function! lightline_powerful#gitbranch() abort
   else
     return ''
   endif
-  let b:lightline_gitbranch = branch !=# '' ? s:fu.branch : ''
+  let b:lightline_gitbranch = branch !=# '' ? branch : ''
   let b:lightline_gitbranch_ = reltime()
   return b:lightline_gitbranch
 endfunction
@@ -95,7 +91,7 @@ endfunction
 
 function! lightline_powerful#tabreadonly(n) abort
   let winnr = tabpagewinnr(a:n)
-  return gettabwinvar(a:n, winnr, '&readonly') ? s:ro : ''
+  return gettabwinvar(a:n, winnr, '&readonly') ? 'RO' : ''
 endfunction
 
 function! lightline_powerful#tabfilename(n) abort
