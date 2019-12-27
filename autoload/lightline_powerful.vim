@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2019/10/15 12:59:28.
+" Last Change: 2019/12/27 18:47:50.
 " =============================================================================
 
 scriptencoding utf-8
@@ -11,7 +11,6 @@ set cpo&vim
 
 let s:e = {
       \ 'ControlP' : "get(g:lightline, 'ctrlp_item', expand('%:t'))",
-      \ '__Tagbar__' : "get(g:lightline, 'fname', expand('%:t'))",
       \ '__Gundo__' : "''",
       \ '__Gundo_Preview__' : "''",
       \ 'vimfiler' : 'vimfiler#get_status_string()',
@@ -29,7 +28,7 @@ let s:e = {
       \ 'github-dashboard': "''",
       \ '[Command Line]': "''",
       \ }
-let s:f = [ 'ControlP', '__Tagbar__', 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
+let s:f = [ 'ControlP', 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
 function! lightline_powerful#filename() abort
   let f = expand('%:t')
   if has_key(b:, 'lightline_filename') && get(b:, 'lightline_filename_', '') ==# f . &mod . &ma . &ft && (&ft ==# '' || index(s:f, &ft) < 0 && index(s:f, f) < 0)
@@ -55,7 +54,7 @@ function! lightline_powerful#gitbranch() abort
   return b:lightline_gitbranch
 endfunction
 
-let s:m = { 'ControlP': 'CtrlP', '__Tagbar__': 'Tagbar', '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
+let s:m = { 'ControlP': 'CtrlP', '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
 let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix', 'github-dashboard': 'GitHub Dashboard' }
 function! lightline_powerful#mode() abort
   if &ft ==# 'calendar'
