@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2019/12/27 18:47:50.
+" Last Change: 2020/01/15 13:55:48.
 " =============================================================================
 
 scriptencoding utf-8
@@ -93,15 +93,28 @@ function! lightline_powerful#tabreadonly(n) abort
   return gettabwinvar(a:n, winnr, '&readonly') ? 'RO' : ''
 endfunction
 
+let s:buffer_count_by_basename = {}
+augroup lightline_powerful_filenames
+  autocmd!
+  autocmd BufEnter,WinEnter,WinLeave * call s:update_bufnrs()
+augroup END
+
+function! s:update_bufnrs() abort
+  let s:buffer_count_by_basename = {}
+  let bufnrs = filter(range(1, bufnr('$')), 'len(bufname(v:val)) && bufexists(v:val) && buflisted(v:val)')
+  for name in map(bufnrs, 'expand("#" . v:val . ":t")')
+    if name !=# ''
+      let s:buffer_count_by_basename[name] = get(s:buffer_count_by_basename, name) + 1
+    endif
+  endfor
+endfunction
+
 function! lightline_powerful#tabfilename(n) abort
   let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
   let bufname = expand('#' . bufnr . ':t')
-  let buffullname = expand('#' . bufnr . ':p')
-  let bufnrs = filter(range(1, bufnr('$')), 'v:val != bufnr && len(bufname(v:val)) && bufexists(v:val) && buflisted(v:val)')
-  let i = index(map(copy(bufnrs), 'expand("#" . v:val . ":t")'), bufname)
   let ft = gettabwinvar(a:n, tabpagewinnr(a:n), '&ft')
-  if strlen(bufname) && i >= 0 && map(bufnrs, 'expand("#" . v:val . ":p")')[i] != buffullname
-    let fname = substitute(buffullname, '.*/\([^/]\+/\)', '\1', '')
+  if get(s:buffer_count_by_basename, bufname) > 1
+    let fname = substitute(expand('#' . bufnr . ':p'), '.*/\([^/]\+/\)', '\1', '')
   else
     let fname = bufname
   endif
