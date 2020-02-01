@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/01/15 13:55:48.
+" Last Change: 2020/02/01 10:50:00.
 " =============================================================================
 
 scriptencoding utf-8
@@ -41,7 +41,7 @@ function! lightline_powerful#filename() abort
 endfunction
 
 function! lightline_powerful#gitbranch() abort
-  if has_key(b:, 'lightline_gitbranch') && reltimestr(reltime(b:lightline_gitbranch_)) =~# '^\s*0\.[0-3]'
+  if has_key(b:, 'lightline_gitbranch') && reltimefloat(reltime(b:lightline_gitbranch_)) < 0.5
     return b:lightline_gitbranch
   endif
   if exists('*gitbranch#name')
