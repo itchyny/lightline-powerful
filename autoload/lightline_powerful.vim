@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/02 18:02:13.
+" Last Change: 2020/02/02 18:08:56.
 " =============================================================================
 
 scriptencoding utf-8
@@ -74,9 +74,7 @@ endfunction
 let g:ctrlp_status_func = { 'main': 'lightline_powerful#CtrlPStatusFunc_1', 'prog': 'lightline_powerful#CtrlPStatusFunc_2' }
 function! lightline_powerful#CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked) abort
   let g:lightline.ctrlp_regex = a:regex
-  let g:lightline.ctrlp_prev = a:prev
   let g:lightline.ctrlp_item = a:item
-  let g:lightline.ctrlp_next = a:next
   return lightline#statusline(0)
 endfunction
 
