@@ -2,12 +2,8 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/02 18:08:56.
+" Last Change: 2020/02/09 11:45:49.
 " =============================================================================
-
-scriptencoding utf-8
-let s:save_cpo = &cpo
-set cpo&vim
 
 let s:e = {
       \ 'ControlP' : "get(g:lightline, 'ctrlp_item', expand('%:t'))",
@@ -114,6 +110,3 @@ function! lightline_powerful#tabfilename(n) abort
   endif
   return fname =~# '^\[preview' ? 'Preview' : get(s:m, fname, get(s:p, ft, fname))
 endfunction
-
-let &cpo = s:save_cpo
-unlet s:save_cpo

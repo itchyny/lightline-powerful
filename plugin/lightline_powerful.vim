@@ -2,17 +2,13 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2019/12/23 10:49:49.
+" Last Change: 2020/02/09 11:45:44.
 " =============================================================================
 
 if exists('g:loaded_lightline_powerful') || v:version < 700
   finish
 endif
 let g:loaded_lightline_powerful = 1
-
-scriptencoding utf-8
-let s:save_cpo = &cpo
-set cpo&vim
 
 let g:lightline = extend(get(g:, 'lightline', {}), {
       \ 'active': {
@@ -48,6 +44,3 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \   'readonly': 'lightline_powerful#tabreadonly',
       \ },
       \ }, 'keep')
-
-let &cpo = s:save_cpo
-unlet s:save_cpo
