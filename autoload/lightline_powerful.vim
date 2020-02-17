@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/17 13:35:46.
+" Last Change: 2020/02/17 13:36:22.
 " =============================================================================
 
 let s:e = {
@@ -10,7 +10,6 @@ let s:e = {
       \ 'unite' : 'unite#get_status_string()',
       \ 'quickrun' : "''",
       \ 'qf' : "''",
-      \ 'vimcalc' : "''",
       \ 'dictionary' : "exists('b:dictionary.input') ? b:dictionary.input : default",
       \ 'calendar' : "strftime('%Y/%m/%d')",
       \ 'thumbnail' : "exists('b:thumbnail.status') ? b:thumbnail.status : 'Thumbnail'",
@@ -41,7 +40,7 @@ function! lightline_powerful#gitbranch() abort
   return b:lightline_gitbranch
 endfunction
 
-let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix' }
+let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix' }
 function! lightline_powerful#mode() abort
   if &ft ==# 'calendar'
     call lightline#link("nvV\<C-v>"[b:calendar.visual_mode()])
