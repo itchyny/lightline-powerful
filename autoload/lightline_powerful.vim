@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/17 13:36:22.
+" Last Change: 2020/02/17 13:37:49.
 " =============================================================================
 
 let s:e = {
@@ -16,7 +16,7 @@ let s:e = {
       \ 'agit' : "''",
       \ 'agit_diff' : "''",
       \ 'agit_stat' : "''",
-      \ '[Command Line]': "''",
+      \ '[Command Line]': "'Command Line'",
       \ }
 let s:f = [ 'vimfiler', 'unite', 'dictionary', 'thumbnail' ]
 function! lightline_powerful#filename() abort
