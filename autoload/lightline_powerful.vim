@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/17 13:35:26.
+" Last Change: 2020/02/17 13:35:46.
 " =============================================================================
 
 let s:e = {
@@ -17,7 +17,6 @@ let s:e = {
       \ 'agit' : "''",
       \ 'agit_diff' : "''",
       \ 'agit_stat' : "''",
-      \ 'github-dashboard': "''",
       \ '[Command Line]': "''",
       \ }
 let s:f = [ 'vimfiler', 'unite', 'dictionary', 'thumbnail' ]
@@ -42,7 +41,7 @@ function! lightline_powerful#gitbranch() abort
   return b:lightline_gitbranch
 endfunction
 
-let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix', 'github-dashboard': 'GitHub Dashboard' }
+let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix' }
 function! lightline_powerful#mode() abort
   if &ft ==# 'calendar'
     call lightline#link("nvV\<C-v>"[b:calendar.visual_mode()])
