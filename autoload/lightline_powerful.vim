@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/17 13:33:52.
+" Last Change: 2020/02/17 13:34:08.
 " =============================================================================
 
 let s:e = {
@@ -53,12 +53,6 @@ function! lightline_powerful#mode() abort
     endif
   endif
   return get(s:p, &ft, lightline#mode())
-endfunction
-
-let g:tagbar_status_func = 'lightline_powerful#TagbarStatusFunc'
-function! lightline_powerful#TagbarStatusFunc(current, sort, fname, ...) abort
-  let g:lightline.fname = a:fname
-  return lightline#statusline(0)
 endfunction
 
 function! lightline_powerful#tabreadonly(n) abort
