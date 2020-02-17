@@ -2,12 +2,10 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/17 13:33:09.
+" Last Change: 2020/02/17 13:33:52.
 " =============================================================================
 
 let s:e = {
-      \ '__Gundo__' : "''",
-      \ '__Gundo_Preview__' : "''",
       \ 'vimfiler' : 'vimfiler#get_status_string()',
       \ 'unite' : 'unite#get_status_string()',
       \ 'vimshell' : "exists('b:vimshell.current_dir') ? substitute(b:vimshell.current_dir,expand('~'),'~','') : default",
@@ -45,7 +43,6 @@ function! lightline_powerful#gitbranch() abort
   return b:lightline_gitbranch
 endfunction
 
-let s:m = { '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
 let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix', 'github-dashboard': 'GitHub Dashboard' }
 function! lightline_powerful#mode() abort
   if &ft ==# 'calendar'
@@ -55,7 +52,7 @@ function! lightline_powerful#mode() abort
       call lightline#link(b:thumbnail.view.visual_mode)
     endif
   endif
-  return get(s:m, expand('%:t'), get(s:p, &ft, lightline#mode()))
+  return get(s:p, &ft, lightline#mode())
 endfunction
 
 let g:tagbar_status_func = 'lightline_powerful#TagbarStatusFunc'
@@ -94,5 +91,5 @@ function! lightline_powerful#tabfilename(n) abort
   else
     let fname = bufname
   endif
-  return fname =~# '^\[preview' ? 'Preview' : get(s:m, fname, get(s:p, ft, fname))
+  return fname =~# '^\[preview' ? 'Preview' : get(s:p, ft, fname)
 endfunction
