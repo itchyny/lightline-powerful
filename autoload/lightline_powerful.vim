@@ -2,13 +2,12 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/17 13:34:08.
+" Last Change: 2020/02/17 13:35:26.
 " =============================================================================
 
 let s:e = {
       \ 'vimfiler' : 'vimfiler#get_status_string()',
       \ 'unite' : 'unite#get_status_string()',
-      \ 'vimshell' : "exists('b:vimshell.current_dir') ? substitute(b:vimshell.current_dir,expand('~'),'~','') : default",
       \ 'quickrun' : "''",
       \ 'qf' : "''",
       \ 'vimcalc' : "''",
@@ -21,7 +20,7 @@ let s:e = {
       \ 'github-dashboard': "''",
       \ '[Command Line]': "''",
       \ }
-let s:f = [ 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
+let s:f = [ 'vimfiler', 'unite', 'dictionary', 'thumbnail' ]
 function! lightline_powerful#filename() abort
   let f = expand('%:t')
   if has_key(b:, 'lightline_filename') && get(b:, 'lightline_filename_', '') ==# f . &mod . &ma . &ft && (&ft ==# '' || index(s:f, &ft) < 0 && index(s:f, f) < 0)
@@ -43,7 +42,7 @@ function! lightline_powerful#gitbranch() abort
   return b:lightline_gitbranch
 endfunction
 
-let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix', 'github-dashboard': 'GitHub Dashboard' }
+let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix', 'github-dashboard': 'GitHub Dashboard' }
 function! lightline_powerful#mode() abort
   if &ft ==# 'calendar'
     call lightline#link("nvV\<C-v>"[b:calendar.visual_mode()])
