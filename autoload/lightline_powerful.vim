@@ -2,11 +2,10 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/09 11:45:49.
+" Last Change: 2020/02/17 13:33:09.
 " =============================================================================
 
 let s:e = {
-      \ 'ControlP' : "get(g:lightline, 'ctrlp_item', expand('%:t'))",
       \ '__Gundo__' : "''",
       \ '__Gundo_Preview__' : "''",
       \ 'vimfiler' : 'vimfiler#get_status_string()',
@@ -24,7 +23,7 @@ let s:e = {
       \ 'github-dashboard': "''",
       \ '[Command Line]': "''",
       \ }
-let s:f = [ 'ControlP', 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
+let s:f = [ 'vimfiler', 'unite', 'vimshell', 'dictionary', 'thumbnail' ]
 function! lightline_powerful#filename() abort
   let f = expand('%:t')
   if has_key(b:, 'lightline_filename') && get(b:, 'lightline_filename_', '') ==# f . &mod . &ma . &ft && (&ft ==# '' || index(s:f, &ft) < 0 && index(s:f, f) < 0)
@@ -46,7 +45,7 @@ function! lightline_powerful#gitbranch() abort
   return b:lightline_gitbranch
 endfunction
 
-let s:m = { 'ControlP': 'CtrlP', '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
+let s:m = { '__Gundo__': 'Gundo', '__Gundo_Preview__': 'Gundo Preview', '[Command Line]': 'Command Line'}
 let s:p = { 'unite': 'Unite', 'vimfiler': 'VimFiler', 'vimshell': 'VimShell', 'quickrun': 'Quickrun', 'dictionary': 'Dictionary', 'calendar': 'Calendar', 'thumbnail': 'Thumbnail', 'vimcalc': 'VimCalc', 'agit' : 'Agit', 'agit_diff' : 'Agit', 'agit_stat' : 'Agit', 'qf': 'QuickFix', 'github-dashboard': 'GitHub Dashboard' }
 function! lightline_powerful#mode() abort
   if &ft ==# 'calendar'
@@ -55,8 +54,6 @@ function! lightline_powerful#mode() abort
     if !empty(b:thumbnail.view.visual_mode)
       call lightline#link(b:thumbnail.view.visual_mode)
     endif
-  elseif expand('%:t') ==# 'ControlP'
-    call lightline#link('iR'[get(g:lightline, 'ctrlp_regex', 0)])
   endif
   return get(s:m, expand('%:t'), get(s:p, &ft, lightline#mode()))
 endfunction
@@ -64,17 +61,6 @@ endfunction
 let g:tagbar_status_func = 'lightline_powerful#TagbarStatusFunc'
 function! lightline_powerful#TagbarStatusFunc(current, sort, fname, ...) abort
   let g:lightline.fname = a:fname
-  return lightline#statusline(0)
-endfunction
-
-let g:ctrlp_status_func = { 'main': 'lightline_powerful#CtrlPStatusFunc_1', 'prog': 'lightline_powerful#CtrlPStatusFunc_2' }
-function! lightline_powerful#CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked) abort
-  let g:lightline.ctrlp_regex = a:regex
-  let g:lightline.ctrlp_item = a:item
-  return lightline#statusline(0)
-endfunction
-
-function! lightline_powerful#CtrlPStatusFunc_2(str) abort
   return lightline#statusline(0)
 endfunction
 
