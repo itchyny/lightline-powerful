@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/17 13:37:49.
+" Last Change: 2020/02/21 16:53:08.
 " =============================================================================
 
 let s:e = {
@@ -65,7 +65,7 @@ augroup END
 
 function! s:update_bufnrs() abort
   let s:buffer_count_by_basename = {}
-  let bufnrs = filter(range(1, bufnr('$')), 'len(bufname(v:val)) && bufexists(v:val) && buflisted(v:val)')
+  let bufnrs = filter(range(1, bufnr('$')), 'buflisted(v:val) && bufexists(v:val) && len(bufname(v:val))')
   for name in map(bufnrs, 'expand("#" . v:val . ":t")')
     if name !=# ''
       let s:buffer_count_by_basename[name] = get(s:buffer_count_by_basename, name) + 1
