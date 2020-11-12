@@ -2,10 +2,10 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/09 11:45:44.
+" Last Change: 2020/11/12 10:27:42.
 " =============================================================================
 
-if exists('g:loaded_lightline_powerful') || v:version < 700
+if exists('g:loaded_lightline_powerful') || v:version < 800
   finish
 endif
 let g:loaded_lightline_powerful = 1
