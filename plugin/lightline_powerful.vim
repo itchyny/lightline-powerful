@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/11/12 10:27:42.
+" Last Change: 2021/02/15 01:04:08.
 " =============================================================================
 
 if exists('g:loaded_lightline_powerful') || v:version < 800
@@ -13,7 +13,7 @@ let g:loaded_lightline_powerful = 1
 let g:lightline = extend(get(g:, 'lightline', {}), {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'filename' ] ],
-      \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'binary', 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'inactive': {
       \   'left': [ [ 'filename' ] ],
@@ -28,7 +28,11 @@ let g:lightline = extend(get(g:, 'lightline', {}), {
       \   'inactive': [ 'tabnum', 'readonly', 'filename', 'modified' ]
       \ },
       \ 'component': {
+      \   'binary': '%{&binary?"binary":""}',
       \   'lineinfo': '%3l:%-2c%<',
+      \ },
+      \ 'component_visible_condition': {
+      \   'binary': '&binary',
       \ },
       \ 'component_function': {
       \   'gitbranch': 'lightline_powerful#gitbranch',
