@@ -2,7 +2,7 @@
 " Filename: autoload/lightline_powerful.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2020/02/21 16:53:08.
+" Last Change: 2024/11/08 22:31:05.
 " =============================================================================
 
 let s:e = {
@@ -35,7 +35,7 @@ function! lightline_powerful#gitbranch() abort
   if has_key(b:, 'lightline_gitbranch') && reltimefloat(reltime(s:gitbranch_time)) < 0.5
     return b:lightline_gitbranch
   endif
-  let b:lightline_gitbranch = gitbranch#name()
+  let b:lightline_gitbranch = exists('*gitbranch#name') ? gitbranch#name() : ''
   let s:gitbranch_time = reltime()
   return b:lightline_gitbranch
 endfunction
